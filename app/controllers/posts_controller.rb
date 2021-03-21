@@ -1,7 +1,13 @@
 class PostsController < ApplicationController
 
   def index
-    @posts = Post.all
+    #if user is trying to access the index of all posts ONLY by a certain author 
+    if params[:author_id]
+      @posts = Author.find(params[:author_id]).posts
+    #otherwise user is trying to access the index of all posts (Post.all) 
+    else
+      @posts = Post.all
+    end
   end
 
   def show
